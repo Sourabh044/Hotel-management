@@ -10,8 +10,8 @@ class Hotel(TimestampedModel):
     HOURLY = 1
 
     ROOM_RATE_CHOICES = (
-        ('By Day', DAY),
-        ('By Hour', HOURLY),
+        (DAY,'By Day'),
+        (HOURLY,'By Hour'),
     )
 
     name = models.CharField(_("Hotel name"), max_length=100, blank=False,null=False)

@@ -5,7 +5,7 @@ from django.contrib.auth.models import PermissionsMixin
 class TimestampedModel(models.Model):
     '''Class of db fields which are common in every table.'''
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(default=None, null=True, blank=True)
 
     class Meta:

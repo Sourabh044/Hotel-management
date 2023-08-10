@@ -4,24 +4,37 @@
 
 {% block content %}
 
+<div class="container">
+    {% for hotel in hotels %}
 
-{% for hotel in hotels %}
-
-<div class="card mb-3">
-    <img src="{{hotel.main_image}}" class="card-img-top" alt="{{hotel.name}}">
+    <div class="card mb-3 mt-1">
+        <img src="{{hotel.main_image.url}}"  height="300" class="card-img-top" alt="{{hotel.name}}">
     <div class="card-body">
         <h5 class="card-title">{{hotel.name}}</h5>
         <p class="card-text">{{hotel.description}}</p>
-        <a
-      href="{% url 'hotel-detail' hotel.id %}"
-      class="btn btn-primary"
-      >View Detail</a
-    >
+        <div class="d-flex justify-content-between">
+
             {% for hotelimage in hotel.hotelimages.all %}
-            <img src="{{hotelimage.image.url}}" alt="{{hotel.name}} image_no_{{forloop.counter}}" class="img-thumbnail" width="200" height="200">
+            <img src="{{hotelimage.image.url}}" alt="{{hotel.name}} image_no_{{forloop.counter}}" class="img-thumbnail" width="200"
+            height="200">
             {% endfor %}
-        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            
+            <div class="d-flex flex-column mb-3">
+                <div class="p-2"></div>
+                <div class="p-2"></div>
+                <div class="p-2"><a
+                    href="{% url 'hotel-detail' hotel.id %}"
+                    class="btn btn-primary"
+                    >View Detail</a
+                    ></div>
+              </div>
+            
     </div>
+        <p class="card-text"><small class="text-body-secondary">Last updated {{ hotel.updated_at|timesince }} mins ago</small>
+    </p>
+    </div>
+    
+    {% endfor %}
 </div>
 
 {# .... **Now the pagination section** .... #}
@@ -29,17 +42,16 @@
 <div class="pagination">
     <span class="page-links">
         {% if page_obj.has_previous %}
-            <a href="/hotels/?page={{ page_obj.previous_page_number }}">previous</a>
+        <a href="/hotels/?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
         <span class="page-current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
         {% if page_obj.has_next %}
-            <a href="/hotels/?page={{ page_obj.next_page_number }}">next</a>
+        <a href="/hotels/?page={{ page_obj.next_page_number }}">next</a>
         {% endif %}
     </span>
 </div>
 {% endif %}
-
-{% endfor %}
+</div>
 {% endblock content %}

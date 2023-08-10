@@ -3,8 +3,9 @@
 {% block title %}{{hotel.name}}{% endblock title%}
 
 {% block content %}
-<div class="card-deck">
+<div class="container">
 
+    <div class="card-deck mt-1 mb-1">
     <div class="card">
         <img
         class="card-img-top"
@@ -14,18 +15,23 @@
         height="200"
         />
         <div class="card-body">
-            <h5 class="card-title">{{hotel.name}}</h5>
-            <p class="card-text">{{hotel.description}}</p>
-            <div class="card-text">
-                <h5 class="card-text">{{hotel.get_room_rate_string}} </h5>
-                <form
-                action="{% url 'create-checkout-session' hotel.id %}"
-                method="POST"
-                >
-                {% csrf_token %}
-                {{hotel_booking_form}}
-                <button type="submit" class="btn btn-primary">Checkout</button>
-            </form>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5 class="card-title">{{hotel.name}}</h5>
+                    <p class="card-text">{{hotel.description}}</p>
+                    <h5 class="card-text">Rate: {{hotel.get_room_rate_string}} </h5>
+                    </div>
+                <div class="card-text">
+                    <form action="{% url 'create-checkout-session' hotel.id %}" method="POST">
+                        {% csrf_token %}
+                    <div class="d-flex flex-column mb-3">
+                        <div class="p-2">{{hotel_booking_form.rooms.label}}: {{hotel_booking_form.rooms}}</div>
+                        <div class="p-2">AC : {{hotel_booking_form.ac}}</div>
+                        <div class="p-2"><button type="submit" class="btn btn-primary">Book</button></div>
+                    </div>
+                    </form>
+                </div>
+                </div>
         </div>
     </div>
 </div>

@@ -30,6 +30,10 @@ class Hotel(TimestampedModel):
             return f"{self.room_rate} per Day."
         elif self.room_rate_type == 1:
             return f"{self.room_rate} per Hour."
+        
+
+    class Meta:
+        ordering = ("created_at",)
 
 class HotelImages(TimestampedModel):
     '''Images related to the Hotels'''

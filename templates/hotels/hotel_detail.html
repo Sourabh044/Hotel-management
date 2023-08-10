@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{hotel.name}}{% endblock title%}
+
+{% block content %}
+<div class="card-deck">
+
+    <div class="card">
+        <img
+        class="card-img-top"
+        src="{{hotel.main_image.url}}"
+        alt="{{hotel.name}}"
+        width="200"
+        height="200"
+        />
+        <div class="card-body">
+            <h5 class="card-title">{{hotel.name}}</h5>
+            <p class="card-text">{{hotel.description}}</p>
+            <div class="card-text">
+                <h5 class="card-text">{{hotel.get_room_rate_string}} </h5>
+                <form
+                action="{% url 'create-checkout-session' hotel.id %}"
+                method="POST"
+                >
+                {% csrf_token %}
+                {{hotel_booking_form}}
+                <button type="submit" class="btn btn-primary">Checkout</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock content %}

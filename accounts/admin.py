@@ -8,11 +8,21 @@ admin.site.site_title = 'HMS'
 admin.site.site_title = "HMS"
 admin.site.index_title = "Hotel Management System Project"
 
+class HotelImagesInline(admin.StackedInline):
+    model = HotelImages
+    readonly_fields = ('deleted_at',)
+    fields = ('image','uploaded_by')
+
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     # ordering = ('created_at',)
     readonly_fields = ('date_joined','last_login',)
 
 
-admin.site.register(Hotel)
+@admin.register(Hotel)
+class Hoteladmin(admin.ModelAdmin):
+    readonly_fields = ('deleted_at',)
+    inlines = (HotelImagesInline,)
+
 admin.site.register(HotelImages)
